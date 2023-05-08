@@ -82,7 +82,7 @@ public class StudentController
 		return studentService.getStudentsWithR();
 	}
 	
-	@GetMapping("/getNoOfStudents")
+	@GetMapping("/countStudents")
 	public Long countAllStudents()
 	{
 		return studentService.countAllStudents();
