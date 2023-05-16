@@ -20,12 +20,19 @@ import com.qsp.springbootcrudstudentproject.dto.Student;
 import com.qsp.springbootcrudstudentproject.exception.IdNotFoundException;
 import com.qsp.springbootcrudstudentproject.service.StudentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/students")
+@Tag(name = "Student")
 public class StudentController 
 {
 	@Autowired
 	StudentService studentService;
+	
 	
 	@PostMapping("/insertStudent")
 	public ResponseEntity<ResponseStructure> insertStudent(@RequestBody StudentRequest studentRequest)
@@ -33,11 +40,28 @@ public class StudentController
 			return	studentService.insertStudent(studentRequest);
 
 	}
+	
+	
+	@Operation(description = "Get end point for Student with id",
+			summary = "This is summary for student get endpoint",
+			responses = {
+					@ApiResponse(
+							description = "Success",
+							responseCode = "200"
+							),
+					@ApiResponse(
+							description = "Unauthorized/Invalid token",
+							responseCode = "403"
+							)
+					    }
+				)
 	@GetMapping("/getById/{id}")
 	public int getById(@PathVariable int id)
 	{
 		return studentService.getById(id);
 	}
+	
+	
 	
 	@GetMapping("/getStudent/{id}")
 	public Student getStudentById(@PathVariable int id)

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,8 +28,18 @@ public class SecurityConfig {
 		
 		http.csrf().disable()
 		.authorizeHttpRequests()
-		.requestMatchers("/api/auth/**")
-		.permitAll()
+		.requestMatchers("/api/auth/**",
+						"/v2/api-docs",
+						"/v3/api-docs",
+						"/v3/api-docs/**",
+						"/swagger-resources",
+						"/swagger-resources/**",
+						"/configuration/ui",
+						"/configuration/security",
+						"/swagger-ui/**",
+						"/webjars/**",
+						"/swagger-ui.html"
+				).permitAll()
 		.anyRequest()
 		.authenticated()
 		.and()
